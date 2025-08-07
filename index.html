@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Gentle Reset Workout</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="my-icon.png">
+
+  <!-- PWA Support -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Sound Preloads -->
+  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">
+  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg">
+  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/human_voices/cheerful_fanfare.ogg">
+</head>
+<body>
+  <!-- Original content preserved -->
+  <!-- ... existing HTML body content goes here ... -->
+
+  <!-- Register Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('✅ Service Worker registered'))
+        .catch(err => console.error('❌ SW registration failed:', err));
+    }
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
