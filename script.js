@@ -1,4 +1,3 @@
-<script>
 let activeWorkout = null;
 let timerInterval = null;
 let remainingTime = 60;
@@ -217,4 +216,3 @@ document.addEventListener('DOMContentLoaded', () => {
     isPaused = false;
   };
 });
-</script>
