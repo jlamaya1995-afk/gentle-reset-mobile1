@@ -1,4 +1,8 @@
 body {
+  overscroll-behavior-y: contain;
+  overscroll-behavior: contain;
+}
+body {
   font-family: Arial, sans-serif;
   margin: 20px;
   background: #fff;
