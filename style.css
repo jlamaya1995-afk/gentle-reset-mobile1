@@ -5,6 +5,40 @@ body {
     background: #fff;
     color: #333;
 }
+.container, section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+@media (max-width: 600px) {
+  h1, h2, h3 {
+    font-size: 1.2em;
+  }
+
+  .workout {
+    padding: 8px;
+    font-size: 0.95em;
+  }
+
+  .timer-display {
+    font-size: 1.2em;
+  }
+
+  table {
+    font-size: 0.85em;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+  button.pause-resume {
+    padding: 6px 12px;
+    font-size: 0.9em;
+    min-width: 80px;
+  }
+}
 .container {
     max-width: 800px;
     margin: auto;
