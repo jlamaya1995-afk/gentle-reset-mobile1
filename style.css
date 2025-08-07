@@ -1,40 +1,75 @@
-
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #fff;
-    color: #333;
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background: #fff;
+  color: #333;
 }
+
+/* Shared layout */
 .container, section {
   max-width: 600px;
   margin: 0 auto;
   padding: 10px;
 }
 
-@media (max-width: 600px) {
-  h1, h2, h3 {
-    font-size: 1.2em;
-  }
+/* Headings */
+h1, h2, h3 {
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
 
-  .workout {
-    padding: 8px;
-    font-size: 0.95em;
-  }
+/* Lists */
+ul {
+  padding-left: 20px;
+}
 
-  .timer-display {
-    font-size: 1.2em;
-  }
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 1em;
+}
+table, th, td {
+  border: 1px solid #ccc;
+}
+th, td {
+  padding: 8px;
+  text-align: center;
+}
 
-  table {
-    font-size: 0.85em;
-  }
+/* Timer display */
+#timer, .timer-display {
+  font-size: 2em;
+  margin: 10px 0;
+}
 
-  th, td {
-    padding: 6px;
-  }
+/* Buttons */
+button, .pause-resume {
+  padding: 10px 20px;
+  margin-right: 10px;
+  font-size: 1em;
+  cursor: pointer;
+}
 
-  button.pause-resume {
-    padding: 6px 12px;
+.pause-resume {
+  display: none; /* hidden by default */
+  margin-top: 10px;
+}
+
+/* Workout box */
+.workout {
+  margin: 20px 0;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  max-width: 100%;
+}
+
+/* Progress bar */
+.progress-bar {
+  background: #eee    padding: 6px 12px;
     font-size: 0.9em;
     min-width: 80px;
   }
