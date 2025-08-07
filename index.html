@@ -6,7 +6,19 @@
   <title>Gentle Reset Workout</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="my-icon.png">
+
+  <!-- PWA Support -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Sound Preloads -->
+  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">
+  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg">
+  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/human_voices/cheerful_fanfare.ogg">
+  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg">
+
   <style>
+    /* ========== Original inline CSS preserved ========== */
     body {
       background: #fafafa;
       font-family: Arial, sans-serif;
@@ -185,10 +197,13 @@
       color: #eee;
       border: 1px solid #bbb;
     }
+    /* ========== End original styles ========== */
   </style>
 </head>
 <body>
-  <button class="toggle-dark" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+  <button class="toggle-dark">Toggle Dark Mode</button>
+
+  <!-- Tracker Table -->
   <section class="tracker-table-wrapper">
     <h2>Weekly Progress Tracker</h2>
     <p>Mark each session you complete with a ✓</p>
@@ -213,89 +228,121 @@
     </table>
   </section>
 
-  <script>
-    // Tracker Table logic
-    const trackerCells = document.querySelectorAll('.check-cell');
-
-    function loadCheckCellData() {
-      const saved = localStorage.getItem('checkCellData');
-      if (!saved) return;
-      const data = JSON.parse(saved);
-      trackerCells.forEach((cell, i) => {
-        if (data[i]) {
-          cell.textContent = '\u2713';
-          cell.classList.add('checked');
-        } else {
-          cell.textContent = '';
-          cell.classList.remove('checked');
-        }
-      });
-    }
-
-    function saveCheckCellData() {
-      const data = Array.from(trackerCells).map(cell => cell.textContent === '\u2713');
-      localStorage.setItem('checkCellData', JSON.stringify(data));
-    }
-
-    trackerCells.forEach(cell => {
-      cell.addEventListener('click', () => {
-        const isChecked = cell.textContent === '\u2713';
-        cell.textContent = isChecked ? '' : '\u2713';
-        cell.classList.toggle('checked', !isChecked);
-        saveCheckCellData();
-      });
-    });
-
-    // Dark mode logic
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      localStorage.setItem('darkMode', isDark);
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      loadCheckCellData();
-      const isDark = localStorage.getItem('darkMode') === 'true';
-      if (isDark) document.body.classList.add('dark-mode');
-    });
-  src="script.js"
-  </script>
-
   <div class="container">
     <h1>Gentle Reset Workout Plan (2x5 Minutes Daily)</h1>
     <p>3 Days a Week • Morning & Evening • Total: 10 Minutes/Day</p>
-    <!-- Day 1 -->
+
+    <!-- Day 1 (Monday) -->
     <div class="day">
       <h2>Day 1 (Monday)</h2>
+
       <h3>Morning Session:</h3>
       <ul>
-        <li class="workout"><span>March in Place (Gentle Warm-Up)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
-        <li class="workout"><span>Arm Circles + Shoulder Rolls</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
-        <li class="workout"><span>Step Jacks or Side Steps</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
-        <li class="workout"><span>High Knees (march if needed)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
-        <li class="workout"><span>Stretch (Hamstrings, Quads, Shoulders)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
+        <li class="workout">
+          <span>March in Place (Gentle Warm-Up)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Arm Circles + Shoulder Rolls</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Step Jacks or Side Steps</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>High Knees (march if needed)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Stretch (Hamstrings, Quads, Shoulders)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
       </ul>
+
       <h3>Evening Session:</h3>
       <ul>
-        <li class="workout"><span>Light Jog or Walk in Place</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
-        <li class="workout"><span>Squat to Reach (or sit to stand)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
-        <li class="workout"><span>Arm Swings + Cross Body Punches</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
-        <li class="workout"><span>Standing Side Crunch</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
-        <li class="workout"><span>Cool Down Stretch</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
+        <li class="workout">
+          <span>Light Jog or Walk in Place</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Squat to Reach (or sit to stand)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Arm Swings + Cross Body Punches</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Standing Side Crunch</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Cool Down Stretch</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
       </ul>
     </div>
 
-    <!-- Day 2 -->
+    <!-- Day 2 (Wednesday) -->
     <div class="day">
       <h2>Day 2 (Wednesday)</h2>
+
       <h3>Morning Session:</h3>
       <ul>
-        <li class="workout"><span>March in Place (Gentle Warm-Up)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
+        <li class="workout">
+          <span>March in Place (Gentle Warm-Up)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button>
+        </li>
         <li class="workout"><span>Side Steps or Step Jacks</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
         <li class="workout"><span>High Knees or Knee Lifts</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
         <li class="workout"><span>Shoulder Rolls + Arm Swings</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
         <li class="workout"><span>Stretch (Hamstrings, Back, Arms)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
       </ul>
+
       <h3>Evening Session:</h3>
       <ul>
         <li class="workout"><span>Walk in Place + Deep Breathing</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
@@ -306,9 +353,10 @@
       </ul>
     </div>
 
-    <!-- Day 3 -->
+    <!-- Day 3 (Friday) -->
     <div class="day">
       <h2>Day 3 (Friday)</h2>
+
       <h3>Morning Session:</h3>
       <ul>
         <li class="workout"><span>March in Place (Gentle Warm-Up)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
@@ -317,6 +365,7 @@
         <li class="workout"><span>High Knees (march if needed)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
         <li class="workout"><span>Stretch (Neck, Arms, Legs)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
       </ul>
+
       <h3>Evening Session:</h3>
       <ul>
         <li class="workout"><span>Walk in Place</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
@@ -326,8 +375,389 @@
         <li class="workout"><span>Full Body Stretch</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button><button class="pause-resume prev-workout">Previous</button></li>
       </ul>
     </div>
+
     <button class="master-reset">Master Reset Timer</button>
   </div>
-  <script src="script.js"></script>
+
+  <!-- Inline JS: keeps original functions + new features as requested -->
+  <script>
+    // ------------------- App State -------------------
+    let activeWorkout = null;
+    let timerInterval = null;
+    let countdownInterval = null;
+    let remainingTime = 60;
+    let isPaused = false;
+
+    // Sounds
+    const beep = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
+    const startBoing = new Audio('https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg');
+    const finishFanfare = new Audio('https://actions.google.com/sounds/v1/human_voices/cheerful_fanfare.ogg');
+
+    // Motivation messages (shown at session start)
+    const motivationalMessages = [
+      "You've got this!",
+      "Let's start strong!",
+      "Breathe, steady, go!",
+      "Nice and steady — you can do it!",
+      "Small steps, big wins!"
+    ];
+
+    // ------------------- Utility fns -------------------
+    function getAllWorkouts() {
+      return Array.from(document.querySelectorAll('.workout'));
+    }
+
+    function formatTime(s) {
+      return `00:${String(s).padStart(2, '0')}`;
+    }
+
+    function updateProgress(bar) {
+      if (!bar) return;
+      bar.style.width = `${((60 - remainingTime) / 60) * 100}%`;
+    }
+
+    // ------------------- Tracker persistence -------------------
+    const trackerCells = Array.from(document.querySelectorAll('.check-cell'));
+    function saveCheckCellData() {
+      const data = trackerCells.map(cell => cell.textContent === '\u2713');
+      localStorage.setItem('checkCellData', JSON.stringify(data));
+    }
+    function loadCheckCellData() {
+      const raw = localStorage.getItem('checkCellData');
+      if (!raw) return;
+      try {
+        const data = JSON.parse(raw);
+        trackerCells.forEach((cell, i) => {
+          if (data[i]) {
+            cell.textContent = '\u2713';
+            cell.classList.add('checked');
+          } else {
+            cell.textContent = '';
+            cell.classList.remove('checked');
+          }
+        });
+      } catch (e) { /* ignore */ }
+    }
+    trackerCells.forEach(cell => {
+      cell.addEventListener('click', () => {
+        const checked = cell.textContent === '\u2713';
+        cell.textContent = checked ? '' : '\u2713';
+        cell.classList.toggle('checked', !checked);
+        saveCheckCellData();
+      });
+    });
+
+    // ------------------- Dark mode persistence -------------------
+    function saveDarkMode(isDark) {
+      localStorage.setItem('darkMode', isDark ? 'true' : 'false');
+    }
+    function loadDarkMode() {
+      return localStorage.getItem('darkMode') === 'true';
+    }
+    // Attach toggle
+    const toggleButton = document.querySelector('.toggle-dark');
+    toggleButton.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      saveDarkMode(document.body.classList.contains('dark-mode'));
+    });
+    if (loadDarkMode()) document.body.classList.add('dark-mode');
+
+    // ------------------- Workout session helpers -------------------
+    function isLastWorkoutOfSession(workoutElement, session = 'morning') {
+      const dayDiv = workoutElement.closest('.day');
+      if (!dayDiv) return false;
+      const h3s = Array.from(dayDiv.querySelectorAll('h3'));
+      const h3 = h3s.find(h => new RegExp(session, 'i').test(h.textContent));
+      const ul = h3 ? h3.nextElementSibling : null;
+      if (!ul) return false;
+      const items = Array.from(ul.querySelectorAll('.workout'));
+      return items.length && workoutElement === items[items.length - 1];
+    }
+
+    function isFirstWorkoutOfSession(workoutElement) {
+      const dayDiv = workoutElement.closest('.day');
+      if (!dayDiv) return false;
+      // Find the session (morning/evening) that contains this workout
+      const h3s = Array.from(dayDiv.querySelectorAll('h3'));
+      for (const h3 of h3s) {
+        const ul = h3.nextElementSibling;
+        if (!ul) continue;
+        const items = Array.from(ul.querySelectorAll('.workout'));
+        if (items.includes(workoutElement)) {
+          return workoutElement === items[0];
+        }
+      }
+      return false;
+    }
+
+    function isLastWorkoutOfDay(workoutElement) {
+      return isLastWorkoutOfSession(workoutElement, 'evening');
+    }
+
+    // ------------------- Save/Load in-progress workout -------------------
+    function saveProgress(index, remaining, paused) {
+      localStorage.setItem('workoutProgress', JSON.stringify({
+        index, remaining, paused, ts: Date.now()
+      }));
+    }
+    function loadProgress() {
+      const raw = localStorage.getItem('workoutProgress');
+      if (!raw) return null;
+      try { return JSON.parse(raw); } catch(e) { return null; }
+    }
+    function clearProgress() {
+      localStorage.removeItem('workoutProgress');
+    }
+
+    // ------------------- Mark completed -------------------
+    function markCompleted(workoutEl) {
+      if (!workoutEl) return;
+      if (workoutEl.querySelector('.complete-badge')) return;
+      const badge = document.createElement('span');
+      badge.textContent = ' ✅';
+      badge.className = 'complete-badge';
+      badge.style.marginLeft = '8px';
+      workoutEl.querySelector('.timer-display')?.appendChild(badge);
+    }
+
+    // ------------------- Countdown (before each workout) -------------------
+    function startCountdownForWorkout(workoutEl, onStart) {
+      // Clear any existing countdown
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+      let count = 3;
+      const timerEl = workoutEl.querySelector('.timer-display');
+      const originalText = timerEl ? timerEl.textContent : null;
+      if (timerEl) timerEl.textContent = `Starting in: ${count}`;
+      // Play beep each count (user-initiated so audio should be allowed)
+      countdownInterval = setInterval(() => {
+        count--;
+        try { beep.currentTime = 0; beep.play().catch(()=>{}); } catch(e) {}
+        if (timerEl) timerEl.textContent = count > 0 ? `Starting in: ${count}` : 'GO!';
+        if (count <= 0) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+          try { startBoing.currentTime = 0; startBoing.play().catch(()=>{}); } catch(e){}
+          // small delay so 'GO!' displays
+          setTimeout(() => {
+            if (timerEl) timerEl.textContent = formatTime(remainingTime);
+            onStart();
+          }, 600);
+        }
+      }, 1000);
+    }
+
+    // ------------------- Core workout start logic -------------------
+    function startWorkout(el, restore=false) {
+      // Stop any running timers
+      if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+      if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+
+      const all = getAllWorkouts();
+      const idx = all.indexOf(el);
+      if (idx === -1) return;
+
+      activeWorkout = el;
+      remainingTime = restore && loadProgress()?.remaining ? loadProgress().remaining : 60;
+      isPaused = restore && loadProgress()?.paused ? loadProgress().paused : false;
+
+      const timerEl = el.querySelector('.timer-display');
+      const progressEl = el.querySelector('.progress');
+      const pauseBtn = el.querySelector('.pause-resume:not(.skip-next):not(.prev-workout)');
+      const skipBtn = el.querySelector('.pause-resume.skip-next');
+      const prevBtn = el.querySelector('.pause-resume.prev-workout');
+
+      // hide controls for other workouts
+      all.forEach(w => {
+        if (w !== el) {
+          w.querySelectorAll('.pause-resume').forEach(b => b.style.display = 'none');
+        }
+      });
+
+      // If this workout is the first of its session, show a motivational message
+      if (isFirstWorkoutOfSession(el)) {
+        const msg = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
+        try { alert(msg); } catch(e) {}
+      }
+
+      // Set initial UI state
+      if (timerEl) timerEl.textContent = formatTime(remainingTime);
+      if (progressEl) progressEl.style.width = `${((60 - remainingTime) / 60) * 100}%`;
+
+      // show pause/resume
+      if (pauseBtn) {
+        pauseBtn.style.display = 'inline-block';
+        pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
+        pauseBtn.onclick = (ev) => {
+          ev.stopPropagation();
+          isPaused = !isPaused;
+          pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
+          // Save progress
+          saveProgress(idx, remainingTime, isPaused);
+        };
+      }
+
+      // prev button
+      if (prevBtn) {
+        prevBtn.style.display = (idx === 0) ? 'none' : 'inline-block';
+        prevBtn.textContent = 'Previous';
+        prevBtn.onclick = (ev) => {
+          ev.stopPropagation();
+          // Clear saved progress and start previous
+          clearProgress();
+          if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+          startWorkout(all[idx - 1]);
+        };
+      }
+
+      // skip/next button
+      if (skipBtn) {
+        skipBtn.style.display = (idx + 1 < all.length) ? 'inline-block' : 'none';
+        skipBtn.textContent = 'Go to Next';
+        skipBtn.onclick = (ev) => {
+          ev.stopPropagation();
+          if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+          clearProgress();
+          if (idx + 1 < all.length) startWorkout(all[idx + 1]);
+        };
+      }
+
+      // Start countdown then timer
+      startCountdownForWorkout(el, () => {
+        // Save progress (index)
+        saveProgress(idx, remainingTime, isPaused);
+
+        timerInterval = setInterval(() => {
+          if (!isPaused) {
+            remainingTime--;
+            if (timerEl) timerEl.textContent = formatTime(remainingTime);
+            if (progressEl) updateProgress(progressEl);
+            saveProgress(idx, remainingTime, isPaused);
+
+            // occasional motivational console messages (won't interrupt)
+            // (optional) every 15s
+            // if (remainingTime % 15 === 0) console.log("Keep going!");
+
+            if (remainingTime <= 0) {
+              clearInterval(timerInterval);
+              timerInterval = null;
+              try { finishFanfare.currentTime = 0; finishFanfare.play().catch(()=>{}); } catch(e){}
+
+              // Mark completed visually
+              markCompleted(el);
+
+              // If this is the last workout of the morning session, STOP (do NOT auto-advance).
+              if (isLastWorkoutOfSession(el, 'morning')) {
+                try { alert("Congrats — you finished the morning session! See you this evening."); } catch(e){}
+                clearProgress();
+                // hide buttons & set Done
+                cleanupAfterFinish(el);
+                return;
+              }
+
+              // If this is the last workout of the day (evening), stop and show summary
+              if (isLastWorkoutOfDay(el)) {
+                try { alert("🎉 You completed all workouts today! Great work — see you tomorrow!"); } catch(e){}
+                clearProgress();
+                cleanupAfterFinish(el);
+                return;
+              }
+
+              // Otherwise, move to the next workout in the full list
+              const nextIdx = idx + 1;
+              if (nextIdx < all.length) {
+                startWorkout(all[nextIdx]);
+              } else {
+                // end
+                clearProgress();
+              }
+            }
+          }
+        }, 1000);
+      });
+    }
+
+    function cleanupAfterFinish(el) {
+      // Hide controls, set timer text to Done, fill progress
+      const pauseBtn = el.querySelector('.pause-resume:not(.skip-next):not(.prev-workout)');
+      const skipBtn = el.querySelector('.pause-resume.skip-next');
+      const prevBtn = el.querySelector('.pause-resume.prev-workout');
+      const timerEl = el.querySelector('.timer-display');
+      const progressEl = el.querySelector('.progress');
+
+      if (pauseBtn) pauseBtn.style.display = 'none';
+      if (skipBtn) skipBtn.style.display = 'none';
+      if (prevBtn) prevBtn.style.display = 'none';
+      if (timerEl) timerEl.textContent = 'Done';
+      if (progressEl) progressEl.style.width = '100%';
+      activeWorkout = null;
+      isPaused = false;
+    }
+
+    // ------------------- Master Reset -------------------
+    function masterReset() {
+      if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+      if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+      getAllWorkouts().forEach(w => {
+        const timerEl = w.querySelector('.timer-display');
+        const progressEl = w.querySelector('.progress');
+        const badge = w.querySelector('.complete-badge');
+        if (badge) badge.remove();
+        if (timerEl) timerEl.textContent = '01:00';
+        if (progressEl) progressEl.style.width = '0%';
+        w.querySelectorAll('.pause-resume').forEach(b => b.style.display = 'none');
+      });
+      trackerCells.forEach(cell => { cell.textContent = ''; cell.classList.remove('checked'); });
+      clearProgress();
+      activeWorkout = null;
+      isPaused = false;
+    }
+    document.querySelector('.master-reset').addEventListener('click', masterReset);
+
+    // ------------------- Resume prompt on load -------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      // Attach click handlers to workouts
+      getAllWorkouts().forEach(w => {
+        w.addEventListener('click', (ev) => {
+          // If clicking a control button, ignore
+          if (ev.target && ev.target.classList && ev.target.classList.contains('pause-resume')) return;
+          // Clear any saved progress when user explicitly starts a workout (fresh)
+          // But we offer resume below if there's saved progress
+          startWorkout(w);
+        });
+      });
+
+      // load saved tracker + dark mode
+      loadCheckCellData();
+      if (loadDarkMode()) document.body.classList.add('dark-mode');
+
+      // If there's saved progress, offer to resume
+      const saved = loadProgress();
+      const all = getAllWorkouts();
+      if (saved && typeof saved.index === 'number' && saved.index < all.length) {
+        const ageMs = Date.now() - (saved.ts || 0);
+        // only offer if not stale (>24h considered stale)
+        if (ageMs < 24 * 60 * 60 * 1000) {
+          const resume = confirm("You have an unfinished workout. Continue where you left off?");
+          if (resume) {
+            startWorkout(all[saved.index], true);
+          } else {
+            clearProgress();
+          }
+        } else clearProgress();
+      }
+    });
+
+    // ------------------- Service Worker registration -------------------
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log('✅ Service Worker registered'))
+      .catch(err => console.error('❌ SW registration failed:', err));
+    }
+
+    // ================= End of inline script =================
+  </script>
 </body>
-                              </html>
+</html>
