@@ -1,0 +1,10 @@
+{
+  "name": "gentle-reset-app",
+  "version": "1.0.0",
+  "description": "Gentle Reset Cardio App - Static Site for Netlify",
+  "scripts": {
+    "build": "echo 'No build needed for static site'"
+  },
+  "author": "ChatGPT",
+  "license": "ISC"
+}
