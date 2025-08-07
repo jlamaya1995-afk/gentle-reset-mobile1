@@ -4,7 +4,12 @@ body {
   background: #fff;
   color: #333;
 }
-
+body {
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 /* Shared layout */
 .container, section {
   max-width: 600px;
