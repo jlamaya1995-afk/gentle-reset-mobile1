@@ -139,11 +139,42 @@
   </section>
 
   <script>
-    document.querySelectorAll('.check-cell').forEach(cell => {
+    const trackerCells = document.querySelectorAll('.check-cell');
+
+    // Load saved data
+    function loadCheckCellData() {
+      const saved = localStorage.getItem('checkCellData');
+      if (!saved) return;
+      const data = JSON.parse(saved);
+      trackerCells.forEach((cell, i) => {
+        if (data[i]) {
+          cell.textContent = '✓';
+          cell.classList.add('checked');
+        } else {
+          cell.textContent = '';
+          cell.classList.remove('checked');
+        }
+      });
+    }
+
+    // Save data
+    function saveCheckCellData() {
+      const data = Array.from(trackerCells).map(cell => cell.textContent === '✓');
+      localStorage.setItem('checkCellData', JSON.stringify(data));
+    }
+
+    // Toggle checkmark on click
+    trackerCells.forEach(cell => {
       cell.addEventListener('click', () => {
-        cell.textContent = cell.textContent === '✓' ? '' : '✓';
+        const isChecked = cell.textContent === '✓';
+        cell.textContent = isChecked ? '' : '✓';
+        cell.classList.toggle('checked', !isChecked);
+        saveCheckCellData();
       });
     });
+
+    // Load on page load
+    window.addEventListener('DOMContentLoaded', loadCheckCellData);
   </script>
   <div class="container">
     <h1>Gentle Reset Workout Plan (2x5 Minutes Daily)</h1>
