@@ -345,10 +345,14 @@
             w.querySelector('.pause-resume.prev-workout').style.display = 'none';
           }
         });
+        // Reset tracker table checkmarks
+        document.querySelectorAll('.check-cell').forEach(cell => {
+          cell.textContent = '';
+        });
         activeWorkout = null;
         isPaused = false;
       };
     });
   </script>
 </body>
-</html>
+  </html>
