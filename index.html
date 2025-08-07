@@ -43,6 +43,40 @@
   </style>
 </head>
 <body>
+
+  <section>
+  <h2>Weekly Progress Tracker</h2>
+  <p>Mark each session you complete with a ✓</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Week</th>
+        <th>Monday<br>Morning</th>
+        <th>Monday<br>Evening</th>
+        <th>Wednesday<br>Morning</th>
+        <th>Wednesday<br>Evening</th>
+        <th>Friday<br>Morning</th>
+        <th>Friday<br>Evening</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 4 Weeks -->
+      <!-- Use spans with class for toggling -->
+      <tr><td>Week 1</td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td></tr>
+      <tr><td>Week 2</td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td></tr>
+      <tr><td>Week 3</td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td></tr>
+      <tr><td>Week 4</td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<script>
+  document.querySelectorAll('.check-cell').forEach(cell => {
+    cell.addEventListener('click', () => {
+      cell.textContent = cell.textContent === '✓' ? '' : '✓';
+    });
+  });
+</script>
   <div class="container">
     <h1>Gentle Reset Workout Plan (2x5 Minutes Daily)</h1>
     <p>3 Days a Week • Morning & Evening • Total: 10 Minutes/Day</p><!-- Day 1 -->
