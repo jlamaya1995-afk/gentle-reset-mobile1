@@ -6,6 +6,18 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="my-icon.png">
   <style>
+    body {
+      background: #fafafa;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 8px #ccc;
+      padding: 24px;
+    }
     .workout {
       margin: 10px 0;
       padding: 10px;
@@ -14,6 +26,7 @@
       cursor: pointer;
       position: relative;
       list-style: none;
+      background: #f8f8f8;
     }
     .workout span {
       font-weight: bold;
@@ -35,6 +48,310 @@
       width: 0%;
       background: #4caf50;
       transition: width 1s linear;
+    }
+    .pause-resume, .skip-next, .prev-workout, .master-reset {
+      margin-top: 5px;
+      padding: 4px 12px;
+      background: #f5f5f5;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-right: 5px;
+      display: none;
+    }
+    .pause-resume:active, .skip-next:active, .prev-workout:active, .master-reset:active {
+      background: #e0e0e0;
+    }
+    .master-reset {
+      background: #ffecec;
+      color: #c00;
+      border: 1px solid #c99;
+      margin: 24px auto 0 auto;
+      display: block;
+      width: 100%;
+    }
+    .tracker-table-wrapper {
+      border: 2px solid #333;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+      background: #fff;
+      padding: 16px;
+      box-shadow: 0 0 4px #ddd;
+      width: 100%;
+    }
+    table {
+      width: 100%;
+      min-width: 650px;
+      border-collapse: collapse;
+      background: #fff;
+      table-layout: auto;
+    }
+    th, td {
+      border: 1px solid #888;
+      padding: 8px 4px;
+      text-align: center;
+      word-break: break-word;
+    }
+    th {
+      background: #f0f0f0;
+      font-weight: bold;
+    }
+    .check-cell {
+      cursor: pointer;
+      min-width: 26px;
+      font-size: 1.2em;
+      background: #f8f8f8;
+      transition: background 0.2s;
+    }
+    .check-cell:hover {
+      background: #e6ffe6;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="tracker-table-wrapper">
+    <h2>Weekly Progress Tracker</h2>
+    <p>Mark each session you complete with a ✓</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Week</th>
+          <th>Monday<br>Morning</th>
+          <th>Monday<br>Evening</th>
+          <th>Wednesday<br>Morning</th>
+          <th>Wednesday<br>Evening</th>
+          <th>Friday<br>Morning</th>
+          <th>Friday<br>Evening</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 4 Weeks -->
+        <tr><td>Week 1</td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td></tr>
+        <tr><td>Week 2</td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td></tr>
+        <tr><td>Week 3</td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td></tr>
+        <tr><td>Week 4</td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <script>
+    document.querySelectorAll('.check-cell').forEach(cell => {
+      cell.addEventListener('click', () => {
+        cell.textContent = cell.textContent === '✓' ? '' : '✓';
+      });
+    });
+  </script>
+  <div class="container">
+    <h1>Gentle Reset Workout Plan (2x5 Minutes Daily)</h1>
+    <p>3 Days a Week • Morning & Evening • Total: 10 Minutes/Day</p>
+<!-- Day 1 -->
+<div class="day">
+  <h2>Day 1 (Monday)</h2>
+  <h3>Morning Session:</h3>
+  <ul>
+    <!-- First workout: NO Previous button -->
+    <li class="workout"><span>March in Place (Gentle Warm-Up)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Arm Circles + Shoulder Rolls</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Step Jacks or Side Steps</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>High Knees (march if needed)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Stretch (Hamstrings, Quads, Shoulders)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+  </ul>
+  <h3>Evening Session:</h3>
+  <ul>
+    <li class="workout"><span>Light Jog or Walk in Place</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Squat to Reach (or sit to stand)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Arm Swings + Cross Body Punches</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Standing Side Crunch</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Cool Down Stretch</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+  </ul>
+</div>
+
+<!-- Day 2 -->
+<div class="day">
+  <h2>Day 2 (Wednesday)</h2>
+  <h3>Morning Session:</h3>
+  <ul>
+    <li class="workout"><span>March in Place (Gentle Warm-Up)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Side Steps or Step Jacks</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>High Knees or Knee Lifts</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Shoulder Rolls + Arm Swings</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Stretch (Hamstrings, Back, Arms)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+  </ul>
+  <h3>Evening Session:</h3>
+  <ul>
+    <li class="workout"><span>Walk in Place + Deep Breathing</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Seated or Standing Squats</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Step Touch with Arm Swings</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Wall Push-ups or Air Punches</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Gentle Cool Down Stretch</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+  </ul>
+</div>
+
+<!-- Day 3 -->
+<div class="day">
+  <h2>Day 3 (Friday)</h2>
+  <h3>Morning Session:</h3>
+  <ul>
+    <li class="workout"><span>March in Place (Gentle Warm-Up)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Step Backs or Light Lunges</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Arm Circles + Shoulder Rolls</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>High Knees (march if needed)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Stretch (Neck, Arms, Legs)</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+  </ul>
+  <h3>Evening Session:</h3>
+  <ul>
+    <li class="workout"><span>Walk in Place</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Gentle Squats or Sit to Stand</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Step Side to Side</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Arm Raises with Breathing</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+    <li class="workout"><span>Full Body Stretch</span><div class="timer-display">01:00</div><div class="progress-bar"><div class="progress"></div></div><button class="pause-resume prev-workout">Previous</button><button class="pause-resume">Pause</button><button class="pause-resume skip-next">Go to Next</button></li>
+  </ul>
+</div>
+    <button class="master-reset">Master Reset Timer</button>
+  </div>
+  <script>
+    let activeWorkout = null;
+    let timerInterval = null;
+    let remainingTime = 60;
+    let isPaused = false;
+    let beep = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
+
+    function startWorkout(el) {
+      if (timerInterval) return; // prevent overlaps
+
+      activeWorkout = el;
+      remainingTime = 60;
+      isPaused = false;
+
+      const timer = el.querySelector('.timer-display');
+      const progress = el.querySelector('.progress');
+      const pauseBtn = el.querySelector('.pause-resume:not(.skip-next):not(.prev-workout)');
+      const skipBtn = el.querySelector('.pause-resume.skip-next');
+      const prevBtn = el.querySelector('.pause-resume.prev-workout');
+
+      timer.textContent = formatTime(remainingTime);
+      progress.style.width = '0%';
+
+      pauseBtn.style.display = 'inline-block';
+      pauseBtn.textContent = 'Pause';
+      pauseBtn.onclick = () => togglePause(timer, progress, pauseBtn);
+
+      // Hide prev button for first workout
+      const all = [...document.querySelectorAll('.workout')];
+      const i = all.indexOf(el);
+      if (prevBtn) {
+        if (i === 0) {
+          prevBtn.style.display = 'none';
+        } else {
+          prevBtn.style.display = 'inline-block';
+          prevBtn.textContent = 'Previous';
+          prevBtn.onclick = () => {
+            if (timerInterval) {
+              clearInterval(timerInterval);
+              timerInterval = null;
+            }
+            startWorkout(all[i - 1]);
+          };
+        }
+      }
+
+      skipBtn.style.display = 'inline-block';
+      skipBtn.textContent = 'Go to Next';
+      skipBtn.onclick = () => {
+        if (timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+        // Go to next workout AND reset its timer
+        if (i + 1 < all.length) {
+          startWorkout(all[i + 1]);
+        } else {
+          // No next workout, just reset current
+          remainingTime = 60;
+          timer.textContent = formatTime(remainingTime);
+          progress.style.width = '0%';
+          isPaused = false;
+          pauseBtn.textContent = 'Pause';
+        }
+      };
+
+      timerInterval = setInterval(() => {
+        if (!isPaused) {
+          remainingTime--;
+          timer.textContent = formatTime(remainingTime);
+          updateProgress(progress);
+
+          if (remainingTime <= 0) {
+            clearInterval(timerInterval);
+            beep.play();
+            timerInterval = null;
+            // At end, auto-reset timer for current workout
+            remainingTime = 60;
+            timer.textContent = formatTime(remainingTime);
+            progress.style.width = '0%';
+            isPaused = false;
+            pauseBtn.textContent = 'Pause';
+          }
+        }
+      }, 1000);
+
+      // Hide pause/skip/prev on other workouts
+      document.querySelectorAll('.workout').forEach(w => {
+        if (w !== el) {
+          w.querySelector('.pause-resume:not(.skip-next):not(.prev-workout)').style.display = 'none';
+          w.querySelector('.pause-resume.skip-next').style.display = 'none';
+          if (w.querySelector('.pause-resume.prev-workout')) {
+            w.querySelector('.pause-resume.prev-workout').style.display = 'none';
+          }
+        }
+      });
+    }
+
+    function togglePause(timer, progress, pauseBtn) {
+      isPaused = !isPaused;
+      pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
+    }
+
+    function updateProgress(bar) {
+      bar.style.width = `${((60 - remainingTime) / 60) * 100}%`;
+    }
+
+    function formatTime(s) {
+      return `00:${String(s).padStart(2, '0')}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.workout').forEach(el => {
+        el.addEventListener('click', () => startWorkout(el));
+      });
+
+      // Master reset timer button
+      document.querySelector('.master-reset').onclick = () => {
+        // Stop timer and reset all displays
+        if (timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+        document.querySelectorAll('.workout').forEach(w => {
+          w.querySelector('.timer-display').textContent = '01:00';
+          w.querySelector('.progress').style.width = '0%';
+          w.querySelector('.pause-resume').style.display = 'none';
+          w.querySelector('.pause-resume.skip-next').style.display = 'none';
+          if (w.querySelector('.pause-resume.prev-workout')) {
+            w.querySelector('.pause-resume.prev-workout').style.display = 'none';
+          }
+        });
+        activeWorkout = null;
+        isPaused = false;
+      };
+    });
+  </script>
+</body>
+</html>      transition: width 1s linear;
     }
     .pause-resume {
       margin-top: 5px;
