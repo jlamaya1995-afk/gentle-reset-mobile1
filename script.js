@@ -38,6 +38,45 @@ let beepAudio = new Audio('https://actions.google.com/sounds/v1/alarms/beep_shor
 function startWorkout(workoutElement) {
   if (timerInterval) return; // prevent restarting mid-count
 
+    // Add this helper to detect if the workout is the last morning one for a given day
+function isLastMorningWorkout(workoutElement) {
+  // Get the parent .day div of the current workout
+  const dayDiv = workoutElement.closest('.day');
+  // Find all morning session workouts in this day
+  const morningHeader = dayDiv.querySelector('h3');
+  if (!morningHeader || !/Morning/i.test(morningHeader.textContent)) return false;
+  // The morning ul should be the next sibling after h3
+  const morningList = morningHeader.nextElementSibling;
+  if (!morningList || morningList.tagName !== 'UL') return false;
+  const morningWorkouts = Array.from(morningList.querySelectorAll('.workout'));
+  // Is this workout the last morning workout?
+  return morningWorkouts.length && workoutElement === morningWorkouts[morningWorkouts.length - 1];
+}
+
+// Update your autoAdvance (or timer finish) logic:
+function autoAdvance(workoutElement) {
+  if (isLastMorningWorkout(workoutElement)) {
+    alert('The morning session is complete!');
+    // Optionally, you can display a custom modal instead of alert
+    // Prevent auto-advancing
+    return;
+  }
+  // Your existing logic to advance to the next workout:
+  const allWorkouts = getAllWorkouts();
+  const i = allWorkouts.indexOf(workoutElement);
+  if (i + 1 < allWorkouts.length) {
+    startWorkout(allWorkouts[i + 1]);
+  } else {
+    // End of all workouts for the day
+    // Optionally, reset timer or show another message
+  }
+}
+
+// Make sure to pass the workoutElement to autoAdvance when timer finishes:
+// In your timer logic, replace
+// autoAdvance();
+// with
+// autoAdvance(workoutElement);
   const workouts = document.querySelectorAll('.workout');
   currentWorkoutIndex = Array.from(workouts).indexOf(workoutElement);
 
