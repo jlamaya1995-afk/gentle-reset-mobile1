@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Gentle Reset Workout</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="my-icon.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="my-icon.png" />
 
   <!-- PWA Support -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#ffffff">
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
 
   <!-- Sound Preloads -->
-  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">
-  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg">
-  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/human_voices/cheerful_fanfare.ogg">
-
-  <style>
-    /* Keep all your original CSS styles in style.css */
-  </style>
+  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" />
+  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" />
+  <link rel="preload" as="audio" href="https://actions.google.com/sounds/v1/human_voices/cheerful_fanfare.ogg" />
 </head>
 <body>
-  <button class="toggle-dark" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+  <button class="toggle-dark">Toggle Dark Mode</button>
+
   <section class="tracker-table-wrapper">
     <h2>Weekly Progress Tracker</h2>
     <p>Mark each session you complete with a ✓</p>
@@ -38,32 +35,329 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td>Week 1</td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td></tr>
-        <tr><td>Week 2</td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td></tr>
-        <tr><td>Week 3</td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td></tr>
-        <tr><td>Week 4</td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td><td class="check-cell"></td></tr>
+        <tr>
+          <td>Week 1</td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+        </tr>
+        <tr>
+          <td>Week 2</td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+        </tr>
+        <tr>
+          <td>Week 3</td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+        </tr>
+        <tr>
+          <td>Week 4</td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+          <td class="check-cell"></td>
+        </tr>
       </tbody>
     </table>
   </section>
 
-  <!-- Your full workout plan HTML copied from original -->
   <div class="container">
     <h1>Gentle Reset Workout Plan (2x5 Minutes Daily)</h1>
     <p>3 Days a Week • Morning & Evening • Total: 10 Minutes/Day</p>
-    <!-- Keep your full workout days and exercises here exactly as before -->
+
+    <!-- Day 1 -->
+    <div class="day">
+      <h2>Day 1 (Monday)</h2>
+      <h3>Morning Session:</h3>
+      <ul>
+        <li class="workout">
+          <span>March in Place (Gentle Warm-Up)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Arm Circles + Shoulder Rolls</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Step Jacks or Side Steps</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>High Knees (march if needed)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Stretch (Hamstrings, Quads, Shoulders)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+      </ul>
+
+      <h3>Evening Session:</h3>
+      <ul>
+        <li class="workout">
+          <span>Light Jog or Walk in Place</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Squat to Reach (or sit to stand)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Arm Swings + Cross Body Punches</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Standing Side Crunch</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Cool Down Stretch</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day">
+      <h2>Day 2 (Wednesday)</h2>
+      <h3>Morning Session:</h3>
+      <ul>
+        <li class="workout">
+          <span>March in Place (Gentle Warm-Up)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Side Steps or Step Jacks</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>High Knees or Knee Lifts</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Shoulder Rolls + Arm Swings</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Stretch (Hamstrings, Back, Arms)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+      </ul>
+
+      <h3>Evening Session:</h3>
+      <ul>
+        <li class="workout">
+          <span>Walk in Place + Deep Breathing</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Seated or Standing Squats</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Step Touch with Arm Swings</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Wall Push-ups or Air Punches</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Gentle Cool Down Stretch</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day">
+      <h2>Day 3 (Friday)</h2>
+      <h3>Morning Session:</h3>
+      <ul>
+        <li class="workout">
+          <span>March in Place (Gentle Warm-Up)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Step Backs or Light Lunges</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Arm Circles + Shoulder Rolls</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>High Knees (march if needed)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Stretch (Neck, Arms, Legs)</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+      </ul>
+
+      <h3>Evening Session:</h3>
+      <ul>
+        <li class="workout">
+          <span>Walk in Place</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Gentle Squats or Sit to Stand</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Step Side to Side</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Arm Raises with Breathing</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+        <li class="workout">
+          <span>Full Body Stretch</span>
+          <div class="timer-display">01:00</div>
+          <div class="progress-bar"><div class="progress"></div></div>
+          <button class="pause-resume">Pause</button>
+          <button class="pause-resume skip-next">Go to Next</button>
+          <button class="pause-resume prev-workout">Previous</button>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <!-- Master Reset Button -->
   <button class="master-reset">Master Reset Timer</button>
 
-  <!-- Register Service Worker -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('✅ Service Worker registered'))
-        .catch(err => console.error('❌ SW registration failed:', err));
-    }
-  </script>
   <script src="script.js"></script>
 </body>
 </html>
