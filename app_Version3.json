@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Gentle Reset",
+    "slug": "gentle-reset-mobile",
+    "scheme": "gentlereset",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#E6F7F4"
+    },
+    "platforms": ["android", "ios"],
+    "android": {
+      "package": "com.jlamaya1995afk.gentlereset"
+    }
+  }
+}
