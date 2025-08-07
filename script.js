@@ -1,103 +1,220 @@
+<script>
+let activeWorkout = null;
 let timerInterval = null;
 let remainingTime = 60;
 let isPaused = false;
-let beepAudio = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
-let activeWorkout = null;
+let beep = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
 
-// Helper: get all workout elements in DOM order
 function getAllWorkouts() {
   return Array.from(document.querySelectorAll('.workout'));
 }
 
-// Helper: check if the workoutElement is the last morning workout in its day
-function isLastMorningWorkout(workoutElement) {
+function isMorningWorkout(workoutElement) {
   const dayDiv = workoutElement.closest('.day');
-  const morningHeader = dayDiv ? dayDiv.querySelector('h3') : null;
-  if (!morningHeader || !/Morning/i.test(morningHeader.textContent)) return false;
-  const morningList = morningHeader.nextElementSibling;
-  if (!morningList || morningList.tagName !== 'UL') return false;
-  const morningWorkouts = Array.from(morningList.querySelectorAll('.workout'));
-  return morningWorkouts.length && workoutElement === morningWorkouts[morningWorkouts.length - 1];
+  const h3 = dayDiv ? dayDiv.querySelector('h3') : null;
+  return h3 && /morning/i.test(h3.textContent);
 }
 
-// Auto-advance logic: only transition if not the last morning workout
-function autoAdvance(workoutElement) {
-  if (isLastMorningWorkout(workoutElement)) {
-    alert('The morning session is complete!');
-    return; // Do not move to evening
-  }
-  const allWorkouts = getAllWorkouts();
-  const i = allWorkouts.indexOf(workoutElement);
-  if (i + 1 < allWorkouts.length) {
-    startWorkout(allWorkouts[i + 1]);
-  } else {
-    // End of all workouts for the day
-    // Optionally handle this case if needed
+function isLastWorkoutOfSession(workoutElement, session = 'morning') {
+  const dayDiv = workoutElement.closest('.day');
+  if (!dayDiv) return false;
+  const h3 = Array.from(dayDiv.querySelectorAll('h3')).find(h => new RegExp(session, 'i').test(h.textContent));
+  const ul = h3?.nextElementSibling;
+  if (!ul) return false;
+  const workouts = Array.from(ul.querySelectorAll('.workout'));
+  return workouts.length && workoutElement === workouts[workouts.length - 1];
+}
+
+function isLastWorkoutOfDay(workoutElement) {
+  return isLastWorkoutOfSession(workoutElement, 'evening');
+}
+
+function showGreeting() {
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? "Good morning" : "Good evening";
+  alert(`${greeting}, welcome back!`);
+}
+
+function saveProgress(index, remainingTime, isPaused) {
+  localStorage.setItem('workoutProgress', JSON.stringify({
+    index,
+    remainingTime,
+    isPaused,
+    timestamp: Date.now()
+  }));
+}
+
+function loadProgress() {
+  const data = localStorage.getItem('workoutProgress');
+  return data ? JSON.parse(data) : null;
+}
+
+function clearProgress() {
+  localStorage.removeItem('workoutProgress');
+}
+
+function markCompleted(workoutEl) {
+  const badge = document.createElement('span');
+  badge.textContent = '✅';
+  badge.className = 'complete-badge';
+  badge.style.marginLeft = '10px';
+  badge.style.fontSize = '1.2em';
+  if (!workoutEl.querySelector('.complete-badge')) {
+    workoutEl.querySelector('.timer-display').appendChild(badge);
   }
 }
 
-// Start a workout (with timer, pause, skip, progress)
-function startWorkout(workoutElement) {
-  if (timerInterval) return;
+function showDailySummary() {
+  alert("🎉 You completed all workouts today! Great work — see you tomorrow!");
+}
 
-  activeWorkout = workoutElement;
-  remainingTime = 60;
-  isPaused = false;
+function startWorkout(el, restore = false) {
+  if (timerInterval) clearInterval(timerInterval);
 
-  // Hide all pause/skip buttons, then show for current workout
-  document.querySelectorAll('.pause-resume').forEach(btn => btn.style.display = 'none');
-  document.querySelectorAll('.skip-button').forEach(btn => btn.style.display = 'none');
+  const all = getAllWorkouts();
+  const i = all.indexOf(el);
+  if (i === -1) return;
 
-  const timerDisplay = workoutElement.querySelector('.timer-display');
-  const progress = workoutElement.querySelector('.progress');
-  const pauseBtn = workoutElement.querySelector('.pause-resume');
-  const skipBtn = workoutElement.querySelector('.skip-button');
+  activeWorkout = el;
+  remainingTime = restore ? loadProgress()?.remainingTime || 60 : 60;
+  isPaused = restore ? loadProgress()?.isPaused || false : false;
 
-  timerDisplay.textContent = formatTime(remainingTime);
-  progress.style.width = '0%';
+  const timer = el.querySelector('.timer-display');
+  const progress = el.querySelector('.progress');
+  const pauseBtn = el.querySelector('.pause-resume:not(.skip-next):not(.prev-workout)');
+  const skipBtn = el.querySelector('.pause-resume.skip-next');
+  const prevBtn = el.querySelector('.pause-resume.prev-workout');
+
+  timer.textContent = formatTime(remainingTime);
+  updateProgress(progress);
 
   pauseBtn.style.display = 'inline-block';
-  pauseBtn.textContent = 'Pause';
-  pauseBtn.onclick = () => togglePauseResume(timerDisplay, progress, pauseBtn);
+  pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
+  pauseBtn.onclick = () => togglePause(timer, progress, pauseBtn, i);
 
-  skipBtn.style.display = 'inline-block';
-  skipBtn.onclick = () => {
-    clearInterval(timerInterval);
-    timerInterval = null;
-    autoAdvance(workoutElement);
-  };
+  if (prevBtn) {
+    prevBtn.style.display = i === 0 ? 'none' : 'inline-block';
+    prevBtn.textContent = 'Previous';
+    prevBtn.onclick = (ev) => {
+      ev.stopPropagation();
+      clearProgress();
+      startWorkout(all[i - 1]);
+    };
+  }
+
+  if (skipBtn) {
+    skipBtn.style.display = i + 1 < all.length ? 'inline-block' : 'none';
+    skipBtn.textContent = 'Go to Next';
+    skipBtn.onclick = (ev) => {
+      ev.stopPropagation();
+      clearInterval(timerInterval);
+      clearProgress();
+      startWorkout(all[i + 1]);
+    };
+  }
 
   timerInterval = setInterval(() => {
     if (!isPaused) {
       remainingTime--;
-      timerDisplay.textContent = formatTime(remainingTime);
+      timer.textContent = formatTime(remainingTime);
       updateProgress(progress);
+      saveProgress(i, remainingTime, isPaused);
 
       if (remainingTime <= 0) {
         clearInterval(timerInterval);
-        beepAudio.play();
+        beep.play();
+        clearProgress();
         timerInterval = null;
-        autoAdvance(workoutElement);
+
+        markCompleted(el); // ✅ Add badge
+
+        if (isLastWorkoutOfSession(el, 'morning')) {
+          alert("Congrats! Morning workout finished, see you this evening.");
+          cleanupButtons(pauseBtn, skipBtn, prevBtn, timer, progress);
+          return;
+        }
+
+        if (isLastWorkoutOfDay(el)) {
+          showDailySummary();
+          cleanupButtons(pauseBtn, skipBtn, prevBtn, timer, progress);
+          return;
+        }
+
+        if (i + 1 < all.length) {
+          startWorkout(all[i + 1]);
+        }
       }
     }
   }, 1000);
+
+  all.forEach(w => {
+    if (w !== el) {
+      w.querySelectorAll('.pause-resume').forEach(b => b.style.display = 'none');
+    }
+  });
 }
 
-// Pause/resume toggle
-function togglePauseResume(timerDisplay, progress, pauseBtn) {
+function togglePause(timer, progress, pauseBtn, index) {
   isPaused = !isPaused;
   pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
+  saveProgress(index, remainingTime, isPaused);
 }
 
-// Progress bar update
-function updateProgress(progressEl) {
-  const percent = ((60 - remainingTime) / 60) * 100;
-  progressEl.style.width = `${percent}%`;
+function updateProgress(bar) {
+  bar.style.width = `${((60 - remainingTime) / 60) * 100}%`;
 }
 
-// Time formatting (mm:ss)
-function formatTime(seconds) {
-  const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
-  const secs = String(seconds % 60).padStart(2, '0');
-  return `${mins}:${secs}`;
+function formatTime(s) {
+  return `00:${String(s).padStart(2, '0')}`;
 }
+
+function cleanupButtons(pauseBtn, skipBtn, prevBtn, timer, progress) {
+  pauseBtn.style.display = 'none';
+  skipBtn.style.display = 'none';
+  if (prevBtn) prevBtn.style.display = 'none';
+  timer.textContent = 'Done';
+  progress.style.width = '100%';
+  activeWorkout = null;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  showGreeting();
+
+  const all = getAllWorkouts();
+  all.forEach((el, i) => {
+    el.addEventListener('click', (ev) => {
+      if (ev.target.classList.contains('pause-resume')) return;
+      clearProgress();
+      startWorkout(el);
+    });
+  });
+
+  const saved = loadProgress();
+  if (saved && typeof saved.index === 'number' && saved.index < all.length) {
+    const confirmResume = confirm("You have an unfinished workout. Continue where you left off?");
+    if (confirmResume) {
+      startWorkout(all[saved.index], true);
+    } else {
+      clearProgress();
+    }
+  }
+
+  document.querySelector('.master-reset').onclick = () => {
+    if (timerInterval) clearInterval(timerInterval);
+    clearProgress();
+    all.forEach(w => {
+      w.querySelector('.timer-display').textContent = '01:00';
+      w.querySelector('.progress').style.width = '0%';
+      w.querySelectorAll('.pause-resume').forEach(btn => btn.style.display = 'none');
+      const badge = w.querySelector('.complete-badge');
+      if (badge) badge.remove();
+    });
+    document.querySelectorAll('.check-cell').forEach(cell => {
+      cell.textContent = '';
+      cell.classList.remove('checked');
+    });
+    activeWorkout = null;
+    isPaused = false;
+  };
+});
+</script>
