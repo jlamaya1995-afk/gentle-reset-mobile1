@@ -93,3 +93,48 @@ function formatTime(seconds) {
   const secs = String(seconds % 60).padStart(2, '0');
   return `${mins}:${secs}`;
 }
+function startWorkout(el) {
+  if (timerInterval) return;
+
+  activeWorkout = el;
+  remainingTime = 60;
+  isPaused = false;
+
+  // Reset all buttons
+  document.querySelectorAll('.pause-resume').forEach(btn => btn.style.display = 'none');
+  document.querySelectorAll('.skip-button').forEach(btn => btn.style.display = 'none');
+
+  const timer = el.querySelector('.timer-display');
+  const progress = el.querySelector('.progress');
+  const pauseBtn = el.querySelector('.pause-resume');
+  const skipBtn = el.querySelector('.skip-button');
+
+  timer.textContent = formatTime(remainingTime);
+  progress.style.width = '0%';
+
+  pauseBtn.style.display = 'inline-block';
+  pauseBtn.textContent = 'Pause';
+  pauseBtn.onclick = () => togglePause(timer, progress, pauseBtn);
+
+  skipBtn.style.display = 'inline-block';
+  skipBtn.onclick = () => {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    autoAdvance();
+  };
+
+  timerInterval = setInterval(() => {
+    if (!isPaused) {
+      remainingTime--;
+      timer.textContent = formatTime(remainingTime);
+      updateProgress(progress);
+
+      if (remainingTime <= 0) {
+        clearInterval(timerInterval);
+        beep.play();
+        timerInterval = null;
+        autoAdvance();
+      }
+    }
+  }, 1000);
+}
