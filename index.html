@@ -197,10 +197,47 @@
       color: #eee;
       border: 1px solid #bbb;
     }
+    /* ========== Toast Notification Styles ========== */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      pointer-events: none;
+    }
+    .toast {
+      background: #333;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.3s ease;
+      pointer-events: auto;
+      max-width: 400px;
+      text-align: center;
+      font-size: 1em;
+      line-height: 1.4;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .dark-mode .toast {
+      background: #555;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
     /* ========== End original styles ========== */
   </style>
 </head>
 <body>
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
   <button class="toggle-dark">Toggle Dark Mode</button>
 
   <!-- Tracker Table -->
@@ -402,6 +439,31 @@
       "Small steps, big wins!"
     ];
 
+    // ------------------- Toast Notification Function -------------------
+    function showToast(message, duration = 4000) {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      
+      container.appendChild(toast);
+      
+      // Trigger animation
+      setTimeout(() => toast.classList.add('show'), 10);
+      
+      // Remove toast after duration
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.parentNode.removeChild(toast);
+          }
+        }, 300);
+      }, duration);
+    }
+
     // ------------------- Utility fns -------------------
     function getAllWorkouts() {
       return Array.from(document.querySelectorAll('.workout'));
@@ -579,7 +641,7 @@
       // If this workout is the first of its session, show a motivational message
       if (isFirstWorkoutOfSession(el)) {
         const msg = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
-        try { alert(msg); } catch(e) {}
+        showToast(msg);
       }
 
       // Set initial UI state
@@ -650,7 +712,7 @@
 
               // If this is the last workout of the morning session, STOP (do NOT auto-advance).
               if (isLastWorkoutOfSession(el, 'morning')) {
-                try { alert("Congrats — you finished the morning session! See you this evening."); } catch(e){}
+                showToast("Congrats — you finished the morning session! See you this evening.");
                 clearProgress();
                 // hide buttons & set Done
                 cleanupAfterFinish(el);
@@ -659,7 +721,7 @@
 
               // If this is the last workout of the day (evening), stop and show summary
               if (isLastWorkoutOfDay(el)) {
-                try { alert("🎉 You completed all workouts today! Great work — see you tomorrow!"); } catch(e){}
+                showToast("🎉 You completed all workouts today! Great work — see you tomorrow!");
                 clearProgress();
                 cleanupAfterFinish(el);
                 return;

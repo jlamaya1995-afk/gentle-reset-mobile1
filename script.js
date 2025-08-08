@@ -20,6 +20,31 @@ const motivationalMessages = [
   "Feel the energy!"
 ];
 
+// ----------------- Toast Notification Function -----------------
+function showToast(message, duration = 4000) {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  
+  container.appendChild(toast);
+  
+  // Trigger animation
+  setTimeout(() => toast.classList.add('show'), 10);
+  
+  // Remove toast after duration
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.parentNode.removeChild(toast);
+      }
+    }, 300);
+  }, duration);
+}
+
 // ----------------- Helpers -----------------
 function getAllWorkouts() {
   return Array.from(document.querySelectorAll('.workout'));
@@ -82,9 +107,9 @@ function clearWorkoutProgress() {
 
 // ----------------- UI Bits -----------------
 function showMotivation() {
-  // Non-blocking: use confirm-like? keep alert since user asked for messages
+  // Non-blocking: use showToast instead of alert
   const msg = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
-  try { alert(msg); } catch (e) { /* ignore in case blocked */ }
+  showToast(msg);
 }
 
 function showCountdown(timerElement, onDone) {
@@ -190,14 +215,14 @@ function startWorkout(el, restore = false) {
 
           // session/day logic
           if (isLastWorkoutOfSession(el, 'morning')) {
-            try { alert("Congrats! Morning workout finished, see you this evening."); } catch(e){}
+            showToast("Congrats! Morning workout finished, see you this evening.");
             cleanupAfterFinish(pauseBtn, skipBtn, prevBtn, timerEl, progress);
             clearWorkoutProgress();
             return;
           }
 
           if (isLastWorkoutOfDay(el)) {
-            try { alert("🎉 You completed all workouts today! Great work — see you tomorrow!"); } catch(e){}
+            showToast("🎉 You completed all workouts today! Great work — see you tomorrow!");
             cleanupAfterFinish(pauseBtn, skipBtn, prevBtn, timerEl, progress);
             clearWorkoutProgress();
             return;
@@ -376,7 +401,7 @@ function getAllWorkouts() {
 
 function showMotivation() {
   const msg = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
-  alert(msg);
+  showToast(msg);
 }
 
 function showCountdown(timer, callback) {
