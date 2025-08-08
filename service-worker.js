@@ -7,7 +7,8 @@ const ASSETS_TO_CACHE = [
   '/script.js',
   '/manifest.json',
   '/icons/icon-192.png',
-  '/icons/icon-512.png'
+  '/icons/icon-512.png',
+  '/My-icon.jpg'
 ];
 
 self.addEventListener('install', event => {
@@ -30,6 +31,7 @@ self.addEventListener('activate', event => {
   );
 });
 
+// Cache-first strategy
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response => {
